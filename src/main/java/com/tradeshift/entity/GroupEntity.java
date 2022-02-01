@@ -16,7 +16,7 @@ import lombok.Setter;
 @Table(name = "GROUPS")
 public class GroupEntity {
 
-	@Column(name = "Id")
+	@Column(name = "index")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer index;
