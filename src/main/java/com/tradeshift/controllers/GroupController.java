@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tradeshift.api.request.UpdateParentGroupRequest;
 import com.tradeshift.entity.GroupEntity;
+import com.tradeshift.exception.InvalidInputException;
 import com.tradeshift.services.GroupService;
 
 @RestController
@@ -30,7 +31,9 @@ public class GroupController {
 
 	@PostMapping(value = "/update/parent", produces = "application/json")
 	public ResponseEntity<GroupEntity> upddateParent(@RequestBody UpdateParentGroupRequest request) {
-		request.validate();
+		if(!request.validate()) {
+			throw new InvalidInputException("Invalid input passed.");
+		}
 		return ResponseEntity.status(HttpStatus.OK).body(groupService.updateParentGroup(request));
 	}
 }

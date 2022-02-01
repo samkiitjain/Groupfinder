@@ -23,17 +23,18 @@ public class GroupService {
 
 	public GroupEntity updateParentGroup(UpdateParentGroupRequest request) {
 
-		GroupEntity childGroup = groupRepository.findByNodeType(request.getGroupType());
+		GroupEntity targetedChildGroup = groupRepository.findByNodeType(request.getGroupType());
 		
 		GroupEntity targetParentGroup = groupRepository.findByNodeType(request.getTargetParentType());
 
 		List<GroupEntity> targetParentExistingChildGroups = groupRepository
 							.findByParentNodeIdStartsWithAndNodeHeight
 										(targetParentGroup.getNodeId(), targetParentGroup.getNodeHeight() + 1);
+		//Update node information.
+		targetedChildGroup.setNodeHeight(targetParentGroup.getNodeHeight() + 1);
+		targetedChildGroup.setParentNodeId(targetParentGroup.getNodeId());
+		targetedChildGroup.setNodeId(targetParentGroup.getNodeId() + (targetParentExistingChildGroups.size() + 1));
 
-		childGroup.setNodeHeight(targetParentGroup.getNodeHeight() + 1);
-		childGroup.setParentNodeId(targetParentGroup.getNodeId());
-		childGroup.setNodeId(targetParentGroup.getNodeId() + (targetParentExistingChildGroups.size() + 1));
-		return groupRepository.save(childGroup);
+		return groupRepository.save(targetedChildGroup);
 	}
 }
