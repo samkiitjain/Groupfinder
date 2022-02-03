@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @NoArgsConstructor @Getter @Setter
 @Entity
-@Table(name = "GROUPS")
+@Table(name = "Groups")
 public class GroupEntity {
 
 	@Column(name = "index")
