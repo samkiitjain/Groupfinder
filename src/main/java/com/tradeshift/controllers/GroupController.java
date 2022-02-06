@@ -30,7 +30,7 @@ public class GroupController {
 	}
 
 	@PostMapping(value = "/update/parent", produces = "application/json")
-	public ResponseEntity<GroupEntity> upddateParent(@RequestBody UpdateParentGroupRequest request) {
+	public ResponseEntity<GroupEntity> updateParent(@RequestBody UpdateParentGroupRequest request) {
 		if(!request.validate()) {
 			throw new InvalidInputException("Invalid input passed.");
 		}
